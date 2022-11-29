@@ -27,8 +27,6 @@ var financeController = (function() {})();
 
 // ÐŸÑ€Ð¾Ð³Ñ€Ð°Ð¼Ñ‹Ð½ Ñ…Ð¾Ð»Ð±Ð¾Ð³Ñ‡ ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»Ð»ÐµÑ€
 var appController = (function(uiController, financeController) {
-  var DOM = uiController.getDOMstrings();
-
   var ctrlAddItem = function() {
     // 1. ÐžÑ€ÑƒÑƒÐ»Ð°Ñ… Ó©Ð³Ó©Ð³Ð´Ð»Ð¸Ð¹Ð³ Ð´ÑÐ»Ð³ÑÑ†ÑÑÑ Ð¾Ð»Ð¶ Ð°Ð²Ð½Ð°.
     console.log(uiController.getInput());
@@ -38,13 +36,26 @@ var appController = (function(uiController, financeController) {
     // 5. Ð­Ñ†ÑÐ¸Ð¹Ð½ Ò¯Ð»Ð´ÑÐ³Ð´ÑÐ», Ñ‚Ð¾Ð¾Ñ†Ð¾Ð¾Ð³ Ð´ÑÐ»Ð³ÑÑ†ÑÐ½Ð´ Ð³Ð°Ñ€Ð³Ð°Ð½Ð°.
   };
 
-  document.querySelector(DOM.addBtn).addEventListener("click", function() {
-    ctrlAddItem();
-  });
+  var setupEventListeners = function() {
+    var DOM = uiController.getDOMstrings();
 
-  document.addEventListener("keypress", function(event) {
-    if (event.keyCode === 13 || event.which === 13) {
+    document.querySelector(DOM.addBtn).addEventListener("click", function() {
       ctrlAddItem();
+    });
+
+    document.addEventListener("keypress", function(event) {
+      if (event.keyCode === 13 || event.which === 13) {
+        ctrlAddItem();
+      }
+    });
+  };
+
+  return {
+    init: function() {
+      console.log("Application started...");
+      setupEventListeners();
     }
-  });
+  };
 })(uiController, financeController);
+
+appController.init();
